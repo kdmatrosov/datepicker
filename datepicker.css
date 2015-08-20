@@ -19,3 +19,21 @@
     border: 0;
     outline: 0;
 }
+.d-picker__panel
+{
+    /*display: none;*/
+    position: absolute;
+    width: 210px;
+    height: 195px;
+    background-color: #ffffff;
+    z-index: 50000;
+    top: 32px;
+    left: -1px;
+    border: 1px solid #d1d1d1;
+}
+
+/**/
+.dspl-none
+{
+    display: none;
+}

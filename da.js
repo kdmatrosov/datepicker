@@ -50,6 +50,24 @@ var domAssistant = (function(){
         return elementsStack[0].parentElement;
     };
 
+    assistant.getDocumentElementsWithAttribute = function (attributeName) {
+        var attributeValue = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
+        var element = arguments.length <= 2 || arguments[2] === undefined ? document : arguments[2];
+        return element.querySelectorAll("[" + attributeName + "=\"" + attributeValue + "\"]");
+    };
+
+    assistant.getDocumentElementsWithTagName = function (tagName) {
+        var element = arguments.length <= 1 || arguments[1] === undefined ? document : arguments[1];
+
+        return element.querySelectorAll("" + className);
+    };
+
+    assistant.getDocumentElementsWithClassName = function (className) {
+        var element = arguments.length <= 1 || arguments[1] === undefined ? document : arguments[1];
+
+        return element.querySelectorAll("." + className);
+    };
+
 
     assistant.addClass = function(className){
         elementsStack[elementsCount-1].classList.add(className);
@@ -68,6 +86,25 @@ var domAssistant = (function(){
 
     assistant.replace = function(targetElement){
         targetElement.parentNode.replaceChild(elementsStack[0],targetElement);
+        return this;
+    };
+
+    assistant.appointEvent = function (eventType, eventTarget, eventFunction) {
+        if (eventTarget === undefined) eventTarget = elementsStack[elementsCount - 1];
+
+        eventTarget["on" + eventType] = eventFunction;
+        return this;
+    };
+
+    assistant.disappointEvent = function (eventType) {
+        var eventTarget = arguments.length <= 1 || arguments[1] === undefined ? elementsStack[elementsCount - 1] : arguments[1];
+
+        eventTarget["on" + eventType] = null;
+        return this;
+    };
+
+    assistant.rewriteCSSRule = function (rule, value) {
+        elementsStack[elementsCount - 1].style[rule] = "" + value;
         return this;
     };
 
