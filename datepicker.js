@@ -50,5 +50,5 @@ window.onload = function () {
             });
         datePickers.push(new_datepicker.get());
     }
-    console.log(datePickers);
+    dateAssitant.getCurrentMonth();
 };
