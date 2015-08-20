@@ -1,6 +1,7 @@
 var dateAssitant = (function()
 {
     var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    var days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
     function formatDate (d)  // функция по формированию вида даты дд.мм.гггг
     {
@@ -47,8 +48,12 @@ var dateAssitant = (function()
 
     dateAss.getDay = function(num)
     {
-        var days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
         return days[num];
+    };
+
+    dateAss.getDays = function()
+    {
+        return days;
     };
 
     dateAss.getMonth = function(year, month)

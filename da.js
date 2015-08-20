@@ -1,5 +1,5 @@
 /*created by Ivan Kamenkov*/
-var domAssistant = (function(){
+function domAssistant (){
     var elementsStack = [];
     var elementsCount = 0;
 
@@ -17,7 +17,6 @@ var domAssistant = (function(){
 
         return assistant;
     }
-
     assistant.createByTag = function(){
         elementsStack[0] = (document.createElement(tagName));
         return this;
@@ -33,6 +32,9 @@ var domAssistant = (function(){
 
         return this;
     };
+    assistant.appendChildToElement = function(element, child){
+        element.appendChild(child);
+    };
 
     assistant.lastNodeAppendChild = function(element, content){
         var newElement = document.createElement(element);
@@ -44,10 +46,27 @@ var domAssistant = (function(){
 
         return this;
     };
+    assistant.appendChildToNode = function(node, element, content){
+        var newElement = document.createElement(element);
+        if (content)
+            newElement.innerHTML = content;
+        node.appendChild(newElement);
+        elementsStack.push(newElement);
+        elementsCount++;
+
+        return this;
+    };
 
     assistant.removeChild = function(element){
         elementsStack[0].removeChild(element);
         return elementsStack[0].parentElement;
+    };
+
+    assistant.removeAllChildrenFromNode = function(node){
+
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
     };
 
     assistant.getDocumentElementsWithAttribute = function (attributeName) {
@@ -120,4 +139,4 @@ var domAssistant = (function(){
     };
 
     return assistant;
-})();
+}

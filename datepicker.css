@@ -8,18 +8,20 @@
     margin: 0 auto;
     display: inline-flex;
 }
-.d-picker__value
+input.d-picker__value
 {
     width: 100%;
     height: 100%;
-    padding: 0;
+    padding: 0!important;
     margin: 0;
     text-align: center;
     line-height: 30px;
     border: 0;
     outline: 0;
+    outline-offset:0;
 }
-.d-picker__panel
+
+.d-panel
 {
     /*display: none;*/
     position: absolute;
@@ -31,17 +33,52 @@
     left: -1px;
     border: 1px solid #d1d1d1;
 }
-.d-picker__day
+.d-panel__header
 {
-    width: 30px;
+    width: 100%;
     height: 30px;
     line-height: 30px;
+    border-bottom: 1px solid #d1d1d1;
+}
+.d-panel__data
+{
+    width: 100%;
+    height: 165px;
+}
+.d-picker__week
+{
+    width: 161px;
+    height: 23px;
+    margin: 0 auto;
+}
+.d-picker__week div.d-picker__day:nth-child(6),
+.d-picker__week div.d-picker__day:nth-child(7),
+.d-picker__week div.d-picker__day_name:nth-child(6),
+.d-picker__week div.d-picker__day_name:nth-child(7){
+    color: #ff0000;
+}
+.d-picker__day,
+.d-picker__day_name
+{
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
     text-align: center;
-    display: inline-flex;
+    display: table-cell;
+}
+.d-picker__day:not(.-empty):hover
+{
+    line-height: 21px;
+    border: 1px dotted #d1d1d1;
+    cursor: pointer;
 }
 
 /**/
 .dspl-none
 {
     display: none;
+}
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
