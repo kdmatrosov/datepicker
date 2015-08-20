@@ -27,6 +27,20 @@ window.onload = function () {
                 var panel = domAssistant(d_picker).getDocumentElementsWithAttribute('panel', '', d_picker)[0];
                 panel.classList.add('dspl-none');
 
+            })
+            .appointEvent('click', this.input, function()
+            {
+                var month = [];
+                if (this.value == '')
+                {
+                    month = dateAssitant.getCurrentMonth();
+                }
+                else
+                {
+                    var date = this.value.split('.');
+                    month = dateAssitant.getMonth(date[2], --date[1]);
+                }
+                console.log(month);
             });
         new_datepicker.appendChild('div').addClass('d-picker__panel').addClass('dspl-none').addAttribute('panel', '')
             .appointEvent('mouseenter', new_datepicker.get(true), function(e)
@@ -50,5 +64,4 @@ window.onload = function () {
             });
         datePickers.push(new_datepicker.get());
     }
-    dateAssitant.getCurrentMonth();
 };

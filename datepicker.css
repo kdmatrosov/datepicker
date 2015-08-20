@@ -31,6 +31,14 @@
     left: -1px;
     border: 1px solid #d1d1d1;
 }
+.d-picker__day
+{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: inline-flex;
+}
 
 /**/
 .dspl-none

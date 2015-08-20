@@ -75,8 +75,8 @@ var domAssistant = (function(){
     };
 
 
-    assistant.hasClass = function(className){
-        return (" " + elementsStack[elementsCount-1].className + " ").replace(/[\n\t]/g, " ").indexOf(" " + className + " ") > -1;
+    assistant.hasClass = function(element, className){
+        return (" " + element.className + " ").replace(/[\n\t]/g, " ").indexOf(" " + className + " ") > -1;
     };
 
     assistant.removeClass = function(className){

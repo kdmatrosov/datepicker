@@ -47,7 +47,7 @@ var dateAssitant = (function()
 
     dateAss.getDay = function(num)
     {
-        var days = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+        var days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
         return days[num];
     };
 
@@ -61,14 +61,13 @@ var dateAssitant = (function()
             _month[day] = correctDn(_date.getDay());
             _date.setDate(day + 1);
         }
-        console.log(_month);
         return _month;
     };
 
     dateAss.getCurrentMonth = function()
     {
         var today = new Date();
-        return dateAss.getMonth(today.getYear(), today.getMonth());
+        return dateAss.getMonth(today.getFullYear(), today.getMonth());
     };
 
     return dateAss;
