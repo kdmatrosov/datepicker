@@ -45,7 +45,7 @@ window.onload = function () {
                 var panel = domAssistant(d_picker).getDocumentElementsWithAttribute('panel', '', d_picker)[0];
                 text.onblur = function()
                 {
-                    panel.classList.toggle('dspl-none');
+                    panel.classList.add('dspl-none');
                 };
             });
         datePickers.push(new_datepicker.get());
