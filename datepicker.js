@@ -66,11 +66,13 @@ window.onload = function () {
                         y = dt[0];
                         m = dt[1];
                     }
+                    console.log(self.date);
 
                     var month = dateAssitant.getMonth(y, m);
                     self.y = y;
                     self.m = m;
                     var curr_day = (y == ty && m == tm) ? td : 0;
+                    var selected = (self.date != undefined && y == self.date.y && m == self.date.m) ? self.date.d : 0;
 
                     p_header__name.text(dateAssitant.getMonthName(m) + ' ' + y);
                     var days = dateAssitant.getDays();
@@ -99,13 +101,21 @@ window.onload = function () {
                         var day = initElem(week, 'div', i).addClass('d-picker__day').on('click', function () {
                             self.d = this.innerText;
                             self.value = dateAssitant.getFormatedDate(self.y, self.m, self.d);
-                            self.date = self.value;
+                            self.date = {
+                                y: self.y,
+                                m: self.m,
+                                d: self.d
+                            };
                             d_panel.addClass('dspl-none');
 
                         });
                         if (curr_day == i)
                         {
                             day.addClass('-today');
+                        }
+                        if (selected == i)
+                        {
+                            day.addClass('-selected');
                         }
                         i++;
                     } while (i < len);

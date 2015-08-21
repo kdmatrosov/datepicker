@@ -111,13 +111,12 @@ input.d-picker__value
 {
     width: 23px;
     height: 23px;
-    line-height: 23px;
-    text-align: center;
-    display: table-cell;
+    line-height: 27px;
+    text-align: center;    float: left;
 }
 .d-picker__day:not(.-empty):not(.-future):hover
 {
-    line-height: 21px;
+    line-height: 25px;
     border: 1px dotted #d1d1d1;
     cursor: pointer;
 }
