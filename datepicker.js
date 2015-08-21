@@ -5,7 +5,7 @@ window.onload = function () {
     for (var i = 0, len = Pickers.length; i < len; i++) {
         (function() {
             var da = new DomAssitant();
-            var new_datepicker = da.ce('div').addClass('d-picker').attr("id", Pickers[0].getAttribute("id"));
+            var new_datepicker = da.ce('div').addClass('d-picker');
             new_datepicker
                 .on('click', function (e) {
                     if (!e.target.hasAttribute('panel') && !e.target.parentNode.hasAttribute('panel') && !e.target.parentNode.parentNode.hasAttribute('panel') &&
@@ -16,7 +16,7 @@ window.onload = function () {
                     d_input.currentElement.focus();
                 });
 
-            var d_input = initElem(new_datepicker, 'input').addClass('d-picker__value')
+            var d_input = initElem(new_datepicker, 'input').addClass('d-picker__value').attr("id", Pickers[0].getAttribute("id"))
                 .attr('type', 'text').attr('placeholder', 'дд.мм.гг')
                 .attr('value', '02.08.2015')
                 .on('blur', function (e) {
