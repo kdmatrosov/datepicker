@@ -8,7 +8,7 @@ var dateAssitant = (function()
         d = [d.getDate(), d.getMonth() + 1, d.getFullYear()];
         return d.join('.').replace(/\b(\d)\b/g, '0$1');
     }
-    function correctDn(d)
+    function correctDay(d)
     {
         return (d == 0) ? 6 : d - 1;
     }
@@ -63,7 +63,7 @@ var dateAssitant = (function()
         while (_date.getMonth() == month)
         {
             var day = _date.getDate();
-            _month[day] = correctDn(_date.getDay());
+            _month[day] = correctDay(_date.getDay());
             _date.setDate(day + 1);
         }
         return _month;

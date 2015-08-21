@@ -1,142 +1,99 @@
-/*created by Ivan Kamenkov*/
-function domAssistant (){
-    var elementsStack = [];
-    var elementsCount = 0;
+/*created by Ivan Kamenkov and Kirill Matrosov*/
+function DomAssitant (){
 
-    //TODO: in jQUery object, $ is array itself.
-    //We need to remove elementsStack, make Array object the assistants prototype and append elements to assistant
-
-    function assistant(tagName){
-        elementsStack = [];
-        elementsCount = 1;
-
-        if (typeof tagName == "string")
-            elementsStack[0] = document.createElement(tagName);
-        else
-            elementsStack[0] = tagName;
-
-        return assistant;
+    function _DomAssitant(  ) {
+        return this;
     }
-    assistant.createByTag = function(){
-        elementsStack[0] = (document.createElement(tagName));
-        return this;
-    };
+    _DomAssitant =
+    {
+        currentElement: null,
+        child: [],
+        constructor: _DomAssitant,
+        init: function(elem)
+        {
+            _DomAssitant.currentElement = elem;
+            return this;
+        },
+        gi: function (id) {
+            _DomAssitant.currentElement = document.getElementById(id);
+            return this;
+        },
 
-    assistant.appendChild = function(element, content){
-        var newElement = document.createElement(element);
-        if (content)
-            newElement.innerHTML = content;
-        elementsStack[0].appendChild(newElement);
-        elementsStack.push(newElement);
-        elementsCount++;
+        ce: function (t) {
+            _DomAssitant.currentElement = document.createElement(t);
+            return this;
+        },
+        getCE: function()
+        {
+            return this.currentElement;
+        },
+        ct: function (t) {
+            _DomAssitant.currentElement = document.createTextNode(t);
+            return this;
+        },
+        gt: function (element, t) {
+            element = element || document;
+            return element.getElementsByTagName(t);
+        },
+        ac: function (child, content) { //appendChildToNode
 
-        return this;
-    };
-    assistant.appendChildToElement = function(element, child){
-        element.appendChild(child);
-    };
+            child = document.createElement(child);
+            if (content)
+                child.innerHTML = content;
+            this.currentElement.appendChild(child);
+            return child;
+        },
+        racfn: function () { //removeAllChildrenFromNode
 
-    assistant.lastNodeAppendChild = function(element, content){
-        var newElement = document.createElement(element);
-        if (content)
-            newElement.innerHTML = content;
-        elementsStack[elementsCount-1].appendChild(newElement);
-        elementsStack.push(newElement);
-        elementsCount++;
+            while (this.currentElement.firstChild) {
+                this.currentElement.removeChild(this.currentElement.firstChild);
+            }
+        },
+        children: function () {
 
-        return this;
-    };
-    assistant.appendChildToNode = function(node, element, content){
-        var newElement = document.createElement(element);
-        if (content)
-            newElement.innerHTML = content;
-        node.appendChild(newElement);
-        elementsStack.push(newElement);
-        elementsCount++;
+            var elem = this.currentElement.childNodes[0];
+        },
+        insertAfter: function (element) {
+            this.currentElement.parentNode.insertBefore(element, this.nextSibling);
+            return this;
+        },
+        getDocumentElementsWithAttribute: function (attributeName) {
+            var attributeValue = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
+            var element = arguments.length <= 2 || arguments[2] === undefined ? this.currentElement : arguments[2];
+            return element.querySelectorAll("[" + attributeName + "=\"" + attributeValue + "\"]");
+        },
+        addClass: function (className) {
+            this.currentElement.classList.add(className);
+            return this;
+        },
+        hasClass: function (className) {
+            return (" " + this.currentElement.className + " ").replace(/[\n\t]/g, " ").indexOf(" " + className + " ") > -1;
+        },
+        removeClass: function (className) {
+            this.currentElement.classList.remove(className);
+            return this;
+        },
+        attr: function (attributeName, attributeContent) {
+            this.currentElement.setAttribute(attributeName, attributeContent);
+            return this;
+        },
+        replace: function (targetElement) {
+            targetElement.parentNode.replaceChild(this.currentElement, targetElement);
+            return this;
+        },
+        on: function (eventType, eventFunction) {
+            this.currentElement["on" + eventType] = eventFunction;
+            return this;
+        },
+        off: function (eventType) {
 
-        return this;
-    };
-
-    assistant.removeChild = function(element){
-        elementsStack[0].removeChild(element);
-        return elementsStack[0].parentElement;
-    };
-
-    assistant.removeAllChildrenFromNode = function(node){
-
-        while (node.firstChild) {
-            node.removeChild(node.firstChild);
+            this.currentElement["on" + eventType] = null;
+            return this;
+        },
+        css: function (rule, value) {
+            this.currentElement.style[rule] = "" + value;
+            return this;
         }
     };
-
-    assistant.getDocumentElementsWithAttribute = function (attributeName) {
-        var attributeValue = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
-        var element = arguments.length <= 2 || arguments[2] === undefined ? document : arguments[2];
-        return element.querySelectorAll("[" + attributeName + "=\"" + attributeValue + "\"]");
-    };
-
-    assistant.getDocumentElementsWithTagName = function (tagName) {
-        var element = arguments.length <= 1 || arguments[1] === undefined ? document : arguments[1];
-
-        return element.querySelectorAll("" + className);
-    };
-
-    assistant.getDocumentElementsWithClassName = function (className) {
-        var element = arguments.length <= 1 || arguments[1] === undefined ? document : arguments[1];
-
-        return element.querySelectorAll("." + className);
-    };
-
-
-    assistant.addClass = function(className){
-        elementsStack[elementsCount-1].classList.add(className);
-        return this;
-    };
-
-
-    assistant.hasClass = function(element, className){
-        return (" " + element.className + " ").replace(/[\n\t]/g, " ").indexOf(" " + className + " ") > -1;
-    };
-
-    assistant.removeClass = function(className){
-        elementsStack[elementsCount-1].classList.remove(className);
-        return this;
-    };
-
-    assistant.addAttribute = function(attributeName, attributeContent){
-        elementsStack[elementsCount-1].setAttribute(attributeName, attributeContent);
-        return this;
-    };
-
-    assistant.replace = function(targetElement){
-        targetElement.parentNode.replaceChild(elementsStack[0],targetElement);
-        return this;
-    };
-
-    assistant.appointEvent = function (eventType, eventTarget, eventFunction) {
-        if (eventTarget === undefined) eventTarget = elementsStack[elementsCount - 1];
-
-        eventTarget["on" + eventType] = eventFunction;
-        return this;
-    };
-
-    assistant.disappointEvent = function (eventType) {
-        var eventTarget = arguments.length <= 1 || arguments[1] === undefined ? elementsStack[elementsCount - 1] : arguments[1];
-
-        eventTarget["on" + eventType] = null;
-        return this;
-    };
-
-    assistant.rewriteCSSRule = function (rule, value) {
-        elementsStack[elementsCount - 1].style[rule] = "" + value;
-        return this;
-    };
-
-    assistant.get = function(last){
-        if (last)
-            return elementsStack[elementsCount-1];
-        return elementsStack[0];
-    };
-
-    return assistant;
+    return _DomAssitant;
 }
