@@ -93,6 +93,12 @@ function DomAssitant (){
         css: function (rule, value) {
             this.currentElement.style[rule] = "" + value;
             return this;
+        },
+        text: function(text)
+        {
+            if (text)
+                this.currentElement.innerHTML = text;
+            return this;
         }
     };
     return _DomAssitant;

@@ -68,6 +68,10 @@ var dateAssitant = (function()
         }
         return _month;
     };
+    dateAss.getMonthName = function(month)
+    {
+        return months[month];
+    };
 
     dateAss.getCurrentMonth = function()
     {

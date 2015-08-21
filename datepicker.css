@@ -26,24 +26,45 @@ input.d-picker__value
     /*display: none;*/
     position: absolute;
     width: 210px;
-    height: 195px;
+    height: auto;
     background-color: #ffffff;
     z-index: 50000;
     top: 32px;
     left: -1px;
     border: 1px solid #d1d1d1;
+    padding: 0 0 5px 0;
 }
-.d-panel__header
+.p-header
 {
     width: 100%;
     height: 30px;
     line-height: 30px;
     border-bottom: 1px solid #d1d1d1;
 }
+.p-header__name
+{
+    width:  128px;
+    height: 100%;
+    text-align: center;
+    display: inline-block;
+}
+.p-header__prev,
+.p-header__next
+{
+    height: 100%;
+    width: 40px;
+    text-align: center;
+    display: inline-block;
+}
+.p-header__prev:hover,
+.p-header__next:hover
+{
+    cursor: pointer;
+}
 .d-panel__data
 {
     width: 100%;
-    height: 165px;
+    height: auto;
 }
 .d-picker__week
 {

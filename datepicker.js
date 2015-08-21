@@ -46,6 +46,7 @@ window.onload = function () {
                         self.y = y;
                         self.m = m;
 
+                        p_header__name.text(dateAssitant.getMonthName(m));
                         var days = dateAssitant.getDays();
                         var week = initElem(p_data, 'div').addClass('d-picker__week');
                         var i = 0, len = days.length;
@@ -93,7 +94,10 @@ window.onload = function () {
                     };
                 });
 
-            var p_header = initElem(d_panel, 'div').addClass('d-panel__header');
+            var p_header = initElem(d_panel, 'div').addClass('p-header');
+            var p_header__prev = initElem(p_header, 'div', '-').addClass('p-header__prev');
+            var p_header__name = initElem(p_header, 'div').addClass('p-header__name');
+            var p_header__next = initElem(p_header, 'div', '+').addClass('p-header__next');
             var p_data = initElem(d_panel, 'div').addClass('d-panel__data').attr('data', '');
             new_datepicker.replace(Pickers[0]);
             datePickers.push(new_datepicker.getCE());
