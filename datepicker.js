@@ -42,15 +42,15 @@ window.onload = function () {
                 var dt__check = dt == null || dt == undefined || dt.length == 0;
                 if (d_panel.hasClass('dspl-none') || !dt__check) {
 
+
                     var parentNode = self.parentNode;
                     var data = d_input.getDocumentElementsWithAttribute('data', '', parentNode)[0];
                     p_data.racfn();
-
-                    var month = [];
-                    var y, m;
+                    var y, m, d;
                     var today = new Date(),
                     ty = today.getFullYear(),
-                    tm = today.getMonth();
+                    tm = today.getMonth(),
+                    td = today.getDate();
                     if (dt__check) {
                         if (self.value == '') {
                             y = ty;
@@ -67,9 +67,10 @@ window.onload = function () {
                         m = dt[1];
                     }
 
-                    month = dateAssitant.getMonth(y, m);
+                    var month = dateAssitant.getMonth(y, m);
                     self.y = y;
                     self.m = m;
+                    var curr_day = (y == ty && m == tm) ? td : 0;
 
                     p_header__name.text(dateAssitant.getMonthName(m) + ' ' + y);
                     var days = dateAssitant.getDays();
@@ -95,17 +96,24 @@ window.onload = function () {
                                 }
                             }
                         }
-                        var day = initElem(week, 'div', i++).addClass('d-picker__day').on('click', function () {
-                            self.value = dateAssitant.getFormatedDate(self.y, self.m, this.innerText);
+                        var day = initElem(week, 'div', i).addClass('d-picker__day').on('click', function () {
+                            self.d = this.innerText;
+                            self.value = dateAssitant.getFormatedDate(self.y, self.m, self.d);
+                            self.date = self.value;
                             d_panel.addClass('dspl-none');
 
                         });
+                        if (curr_day == i)
+                        {
+                            day.addClass('-today');
+                        }
+                        i++;
                     } while (i < len);
                 }
             }
 
             var p_header = initElem(d_panel, 'div').addClass('p-header');
-            var p_header__prev = initElem(p_header, 'div', '-').addClass('p-header__prev').on('click', function()
+            var p_header__prev = initElem(p_header, 'div', '&#8249;').addClass('p-header__prev').on('click', function()
             {
                 var self = d_input.getCE();
                 var temp_year = self.y, temp_month = self.m;
@@ -114,7 +122,7 @@ window.onload = function () {
                 showMonth(self, [temp_year, temp_month]);
             });
             var p_header__name = initElem(p_header, 'div').addClass('p-header__name');
-            var p_header__next = initElem(p_header, 'div', '+').addClass('p-header__next').on('click', function()
+            var p_header__next = initElem(p_header, 'div', '&#8250;').addClass('p-header__next').on('click', function()
             {
                 var self = d_input.getCE();
                 var temp_year = self.y, temp_month = self.m;
