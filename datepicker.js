@@ -57,8 +57,8 @@ window.onload = function () {
                             m = tm;
                         }
                         else {
-                            y = self.y;
-                            m = self.m;
+                            y = self.date.y;
+                            m = self.date.m;
                         }
                     }
                     else
@@ -66,8 +66,6 @@ window.onload = function () {
                         y = dt[0];
                         m = dt[1];
                     }
-                    console.log(self.date);
-
                     var month = dateAssitant.getMonth(y, m);
                     self.y = y;
                     self.m = m;
@@ -116,6 +114,10 @@ window.onload = function () {
                         if (selected == i)
                         {
                             day.addClass('-selected');
+                        }
+                        if (dateAssitant.checkWithAfterToday(y, m, i))
+                        {
+                            day.addClass('-future');
                         }
                         i++;
                     } while (i < len);

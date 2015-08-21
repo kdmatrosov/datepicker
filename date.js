@@ -83,5 +83,19 @@ var dateAssitant = (function()
         return formatDate(new Date(y, m, d));
     };
 
+    dateAss.checkWithAfterToday = function (year, month, day)
+    {
+        var today = new Date();
+        var _y = today.getFullYear(), _m = today.getMonth(), _d = today.getDate();
+        if (_y < year)
+            return true;
+        if (_m < month && _y == year)
+            return true;
+        if (_d < day && _m == month && _y == year)
+            return true;
+        return false;
+
+    };
+
     return dateAss;
 })();

@@ -114,7 +114,7 @@ input.d-picker__value
     line-height: 27px;
     text-align: center;    float: left;
 }
-.d-picker__day:not(.-empty):not(.-future):hover
+.d-picker__day:not(.-empty):hover
 {
     line-height: 25px;
     border: 1px dotted #d1d1d1;
