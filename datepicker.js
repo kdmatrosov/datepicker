@@ -8,17 +8,15 @@ window.onload = function () {
             var new_datepicker = da.ce('div').addClass('d-picker').attr("id", Pickers[0].getAttribute("id"));
             new_datepicker
                 .on('click', function (e) {
-                    var text = da.getDocumentElementsWithAttribute('type', 'text', this)[0];
-                    var panel = da.getDocumentElementsWithAttribute('panel', '', this)[0];
                     if (!e.target.hasAttribute('panel') && !e.target.parentNode.hasAttribute('panel') && !e.target.parentNode.parentNode.hasAttribute('panel') &&
                         !e.target.parentNode.hasAttribute('data') && !e.target.parentNode.parentNode.hasAttribute('data')) {
-                        panel.classList.toggle('dspl-none');
+                        d_panel.currentElement.classList.toggle('dspl-none');
 
                     }
-                    text.focus();
+                    d_input.currentElement.focus();
                 });
 
-            var d_input = initElem(new_datepicker, 'input').addClass('d-picker__value').attr('type', 'text').attr('placeholder', 'дд.мм.гггг')
+            var d_input = initElem(new_datepicker, 'input').addClass('d-picker__value').attr('type', 'text').attr('placeholder', 'дд.мм.гг')
                 .on('blur', function (e) {
                     d_panel.addClass('dspl-none');
 
@@ -28,25 +26,21 @@ window.onload = function () {
                 });
             var d_panel = initElem(new_datepicker, 'div').addClass('d-panel').addClass('dspl-none').attr('panel', '')
                 .on('mouseenter', function (e) {
-                    var parentNode = this.parentNode;
-                    var text = new_datepicker.getDocumentElementsWithAttribute('type', 'text', parentNode)[0];
-                    text.onblur = function () {
+                    d_input.currentElement.onblur = function () {
                     };
 
                 })
                 .on('mouseleave', function (e) {
-                    var parentNode = this.parentNode;
-                    var text = new_datepicker.getDocumentElementsWithAttribute('type', 'text')[0];
-                    var panel = new_datepicker.getDocumentElementsWithAttribute('panel', '')[0];
-                    text.onblur = function () {
-                        panel.classList.add('dspl-none');
+                    d_input.currentElement.onblur = function () {
+                        d_panel.addClass('dspl-none');
                     };
                 });
 
             function showMonth(self, dt) // dt = [year, month]
             {
 
-                if (d_panel.hasClass('dspl-none') || (dt.length)) {
+                var dt__check = dt == null || dt == undefined || dt.length == 0;
+                if (d_panel.hasClass('dspl-none') || !dt__check) {
 
                     var parentNode = self.parentNode;
                     var data = d_input.getDocumentElementsWithAttribute('data', '', parentNode)[0];
@@ -57,15 +51,14 @@ window.onload = function () {
                     var today = new Date(),
                     ty = today.getFullYear(),
                     tm = today.getMonth();
-                    if (dt == null || dt == undefined || dt.length == 0) {
+                    if (dt__check) {
                         if (self.value == '') {
                             y = ty;
                             m = tm;
                         }
                         else {
-                            var date = self.value.split('.');
-                            y = date[2];
-                            m = --date[1];
+                            y = self.y;
+                            m = self.m;
                         }
                     }
                     else
@@ -104,6 +97,7 @@ window.onload = function () {
                         }
                         var day = initElem(week, 'div', i++).addClass('d-picker__day').on('click', function () {
                             self.value = dateAssitant.getFormatedDate(self.y, self.m, this.innerText);
+                            d_panel.addClass('dspl-none');
 
                         });
                     } while (i < len);

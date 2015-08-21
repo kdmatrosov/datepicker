@@ -3,9 +3,9 @@ var dateAssitant = (function()
     var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
     var days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
 
-    function formatDate (d)  // функция по формированию вида даты дд.мм.гггг
+    function formatDate (d)  // функция по формированию вида даты дд.мм.гг
     {
-        d = [d.getDate(), d.getMonth() + 1, d.getFullYear()];
+        d = [d.getDate(), d.getMonth() + 1, d.getFullYear().toString().slice(-2)];
         return d.join('.').replace(/\b(\d)\b/g, '0$1');
     }
     function correctDay(d)
