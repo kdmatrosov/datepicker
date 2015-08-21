@@ -23,19 +23,28 @@ window.onload = function () {
 
                 })
                 .on('click', function () {
-                    var parentNode = this.parentNode;
+                    var self = this;
+                    var parentNode = self.parentNode;
                     if (d_panel.hasClass('dspl-none')) {
                         var data = input.getDocumentElementsWithAttribute('data', '', parentNode)[0];
                         p_data.racfn();
 
                         var month = [];
+                        var y, m;
                         if (this.value == '') {
-                            month = dateAssitant.getCurrentMonth();
+
+                            var today = new Date();
+                            y = today.getFullYear();
+                            m = today.getMonth();
                         }
                         else {
                             var date = this.value.split('.');
-                            month = dateAssitant.getMonth(date[2], --date[1]);
+                            y = date[2];
+                            m = --date[1];
                         }
+                        month = dateAssitant.getMonth(y, m);
+                        self.y = y;
+                        self.m = m;
 
                         var days = dateAssitant.getDays();
                         var week = initElem(p_data, 'div').addClass('d-picker__week');
@@ -61,7 +70,8 @@ window.onload = function () {
                                 }
                             }
                             var day = initElem(week, 'div', i++).addClass('d-picker__day').on('click', function () {
-                                console.log(this.innerText);
+                                self.value = dateAssitant.getFormatedDate(self.y, self.m, this.innerText);
+
                             });
                         } while (i < len);
                     }

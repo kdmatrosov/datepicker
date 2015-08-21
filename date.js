@@ -74,6 +74,10 @@ var dateAssitant = (function()
         var today = new Date();
         return dateAss.getMonth(today.getFullYear(), today.getMonth());
     };
+    dateAss.getFormatedDate = function(y, m, d)
+    {
+        return formatDate(new Date(y, m, d));
+    };
 
     return dateAss;
 })();
