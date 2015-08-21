@@ -18,7 +18,7 @@ window.onload = function () {
 
             var d_input = initElem(new_datepicker, 'input').addClass('d-picker__value').attr("id", Pickers[0].getAttribute("id"))
                 .attr('type', 'text').attr('placeholder', 'дд.мм.гг')
-                .attr('value', '02.08.2015')
+                //.attr('value', '02.08.2015')
                 .on('blur', function (e) {
                     d_panel.addClass('dspl-none');
 
@@ -109,7 +109,7 @@ window.onload = function () {
                             }
                         }
                         var day = initElem(week, 'div', i).addClass('d-picker__day').on('click', function () {
-                            self.d = this.innerText;
+                            self.d = this.innerText || this.innerHTML;
                             self.value = dateAssitant.getFormatedDate(self.y, self.m, self.d);
                             self.date = {
                                 y: self.y,
