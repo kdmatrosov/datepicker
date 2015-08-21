@@ -78,7 +78,7 @@ window.onload = function () {
                     self.y = y;
                     self.m = m;
 
-                    p_header__name.text(dateAssitant.getMonthName(m));
+                    p_header__name.text(dateAssitant.getMonthName(m) + ' ' + y);
                     var days = dateAssitant.getDays();
                     var week = initElem(p_data, 'div').addClass('d-picker__week');
                     var i = 0, len = days.length;
