@@ -16,7 +16,9 @@ window.onload = function () {
                     d_input.currentElement.focus();
                 });
 
-            var d_input = initElem(new_datepicker, 'input').addClass('d-picker__value').attr('type', 'text').attr('placeholder', 'дд.мм.гг')
+            var d_input = initElem(new_datepicker, 'input').addClass('d-picker__value')
+                .attr('type', 'text').attr('placeholder', 'дд.мм.гг')
+                .attr('value', '02.08.2015')
                 .on('blur', function (e) {
                     d_panel.addClass('dspl-none');
 
@@ -57,6 +59,16 @@ window.onload = function () {
                             m = tm;
                         }
                         else {
+                            if (self.date == undefined)
+                            {
+                                var date = self.value.split('.');
+                                self.date = {
+                                    y: +date[2],
+                                    m: --date[1],
+                                    d: +date[0]
+                                };
+                                self.value = dateAssitant.getFormatedDate(self.date.y, self.date.m, self.date.d);
+                            }
                             y = self.date.y;
                             m = self.date.m;
                         }
