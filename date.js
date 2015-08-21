@@ -5,7 +5,7 @@ var dateAssitant = (function()
 
     function formatDate (d)  // функция по формированию вида даты дд.мм.гг
     {
-        d = [d.getDate(), d.getMonth() + 1, d.getFullYear().toString().slice(-2)];
+        d = [d.getDate(), d.getMonth() + 1, d.getFullYear()];
         return d.join('.').replace(/\b(\d)\b/g, '0$1');
     }
     function correctDay(d)
